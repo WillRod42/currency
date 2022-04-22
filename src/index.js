@@ -4,11 +4,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import Currency from "./js/currency.js";
 
-$(function() {
-  let currency = new Currency();
-
-  Currency.getCurrencies()
-    .then(output => {
-      currency.currencies = output;
+async function loadAutoComplete() {
+  console.log("start");
+  let currencies = await Currency.getCurrencies();
+  $(".currency").on("input", function() {
+    let text = $(this).val();
+    let listHTML = `<ul>`;
+    currencies.forEach(function(name) {
+      if (name.substring(0, text.length).toLowerCase() === text.toLowerCase()) {
+        listHTML += `<li><strong>${name.substring(0, text.length)}</strong>${name.substring(text.length)}</li>`;
+      }
     });
+    $(this).siblings("ul").remove();
+    $(this).parent().append(listHTML + "</ul>");
+  });
+}
+
+$(function() {
+  loadAutoComplete();
 });
