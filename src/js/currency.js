@@ -33,7 +33,7 @@ export default class Currency {
       });
   }
 
-  // static convertCurrency(amount, inType, outType) {
+  // static convert(amount, inType, outType, conversions) {
 
   // }
 }
