@@ -2,7 +2,11 @@ export default class Currency {
   static getCurrencies() {
     return fetch(`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/codes`)
       .then(response => {
-        return response.json();
+        if (!response.ok) {
+          throw new Error(`(${response.status}): ${response.statusText}`);
+        } else {
+          return response.json();
+        }
       })
       .then(json => {
         if (json.result !== "success") {
@@ -19,10 +23,13 @@ export default class Currency {
   static getConversionRates() {
     return fetch(`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`)
       .then(response => {
-        return response.json();
+        if (!response.ok) {
+          throw new Error(`(${response.status}): ${response.statusText}`);
+        } else {
+          return response.json();
+        }
       })
       .then(json => {
-        console.log(json);
         if (json.result !== "success") {
           throw new Error(json["error-type"]);
         } else {

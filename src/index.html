@@ -9,17 +9,17 @@
     <div class="row">
       <div class="col-6">
         <h3>Amount:</h3>
-        <input type="number" id="amount" class="form-control" min="0" step="0.01">
+        <input type="number" id="amount" class="form-control" min="0" step="0.01" required>
         <h3>Type:</h3>
         <div class="autocomplete">
-          <input type="text" id="input-type" class="form-control" list="input-list">
+          <input type="text" id="input-type" class="form-control" list="input-list" required>
           <datalist id="input-list"></datalist>
         </div>
       </div>
       <div class="col-6">
         <h3>Type to convert to:</h3>
         <div class="autocomplete">
-          <input type="text" id="output-type" class="form-control" list="output-list">
+          <input type="text" id="output-type" class="form-control" list="output-list" required>
           <datalist id="output-list"></datalist>
         </div>
       </div>
@@ -27,5 +27,6 @@
     <button type="submit" id="sumbit" class="btn btn-primary">Convert</button>
   </form>
   <div id="output"></div>
+  <div id="error"></div>
 </body>
 </html>
