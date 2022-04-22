@@ -7,25 +7,15 @@ import Currency from "./js/currency.js";
 async function loadAutoComplete() {
   console.log("start");
   let currencies = await Currency.getCurrencies();
-  $(".currency").on("input", function() {
-    let text = $(this).val();
-    if (text !== "") {
-      let listHTML = `<ul>`;
-      currencies.forEach(function(name) {
-        if (name.substring(0, text.length).toLowerCase() === text.toLowerCase()) {
-          listHTML += `<li><strong>${name.substring(0, text.length)}</strong>${name.substring(text.length)}</li>`;
-        }
-      });
-      $(this).siblings("ul").remove();
-      $(this).parent().append(listHTML + "</ul>");
-    }
+  
+  let listHTML;
+  currencies.forEach(function(name, code) {
+    listHTML += `<option>${name} (${code})</option>`;
   });
+
+  $("datalist").html(listHTML);
 }
 
 $(function() {
   loadAutoComplete();
-  $(".currency").on("blur", function() {
-    console.log("test");
-    $(this).siblings("ul").remove();
-  });
 });
