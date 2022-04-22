@@ -5,7 +5,6 @@ import './css/styles.css';
 import Currency from "./js/currency.js";
 
 async function loadAutoComplete() {
-  console.log("start");
   let currencies = await Currency.getCurrencies();
   
   let listHTML;
@@ -18,4 +17,8 @@ async function loadAutoComplete() {
 
 $(function() {
   loadAutoComplete();
+  $("#amount").on("change", function() {
+    let input = $(this);
+    input.val(parseFloat(input.val()).toFixed(2));
+  });
 });
