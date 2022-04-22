@@ -22,10 +22,11 @@ export default class Currency {
         return response.json();
       })
       .then(json => {
+        console.log(json);
         if (json.result !== "success") {
           throw new Error(json["error-type"]);
         } else {
-          return new Map(json["conversion_rates"]);
+          return json["conversion_rates"];
         }
       })
       .catch(error => {
@@ -33,7 +34,11 @@ export default class Currency {
       });
   }
 
-  // static convert(amount, inType, outType, conversions) {
+  static convert(amount, inType, outType, conversions) {
+    if (inType !== "USD") {
+      amount /= conversions[inType];
+    }
 
-  // }
+    return amount * conversions[outType];
+  }
 }
