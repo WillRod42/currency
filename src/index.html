@@ -5,6 +5,25 @@
 </head>
 <body>
   <h1 class="display-1 text-center">Currency Exchange</h1>
+  <form autocomplete="off">
+    <div class="row">
+      <div class="col-6">
+        <h3>Amount:</h3>
+        <input type="number" id="amount" class="form-control">
+        <h3>Type:</h3>
+        <div class="autocomplete">
+          <input type="text" id="currency" class="form-control">
+        </div>
+      </div>
+      <div class="col-6">
+        <h3>Type to convert to:</h3>
+        <div class="autocomplete">
+          <input type="text" id="currency" class="form-control">
+        </div>
+      </div>
+    </div>
+    <button type="submit" id="sumbit" class="btn btn-primary">Convert</button>
+  </form>
   <div class="output"></div>
 </body>
 </html>
