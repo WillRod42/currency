@@ -5,5 +5,8 @@ import './css/styles.css';
 import Currency from "./js/currency.js";
 
 $(function() {
-  $("#output").html(Currency.getCurrencies());
+  Currency.getCurrencies()
+    .then(output => {
+      console.log(output);
+    });
 });
