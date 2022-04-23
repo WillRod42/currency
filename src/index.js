@@ -20,26 +20,30 @@ async function loadAutoComplete() {
 
 async function addFormSubmit() {
   let conversions = await Currency.getConversionRates();
-  $("form").on("submit", function(e) {
-    e.preventDefault();
-    $("#error").empty();
-    let inputType = getCodeFromType($("#input-type").val());
-    let outputType = getCodeFromType($("#output-type").val());
-    if (validateType(inputType, conversions) && validateType(outputType, conversions)) {
-      let amount = parseInt($("#amount").val());
-      let convertedAmount = Currency.convert(amount, inputType, outputType, conversions);
-      $("#output").html(`<h2>${inputType} to ${outputType}</h2><h4>${convertedAmount.toFixed(2)} ${outputType}</h4>`);
-    } else {
-      if (!validateType(inputType, conversions)) {
-        $("#input-type").val("");
-      } 
-      if (!validateType(outputType, conversions)) {
-        $("#output-type").val("");
-      }
+  if (conversions.message) {
+    displayError(conversions);
+  } else {
+    $("form").on("submit", function(e) {
+      e.preventDefault();
+      $("#error").empty();
+      let inputType = getCodeFromType($("#input-type").val());
+      let outputType = getCodeFromType($("#output-type").val());
+      if (validateType(inputType, conversions) && validateType(outputType, conversions)) {
+        let amount = parseInt($("#amount").val());
+        let convertedAmount = Currency.convert(amount, inputType, outputType, conversions);
+        $("#output").html(`<h2>${inputType} to ${outputType}</h2><h4>${convertedAmount.toFixed(2)} ${outputType}</h4>`);
+      } else {
+        if (!validateType(inputType, conversions)) {
+          $("#input-type").val("");
+        } 
+        if (!validateType(outputType, conversions)) {
+          $("#output-type").val("");
+        }
 
-      displayError(new Error("Invalid currency type(s)"));
-    }
-  });
+        displayError(new Error("Invalid currency type(s)"));
+      }
+    });
+  }
 }
 
 function validateType(type, types) {
